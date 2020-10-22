@@ -20,7 +20,10 @@ public class MindReader {
 	private Hashtable<Integer, String> table;
 
 	/**
+	 * Creates a new MindReader.
 	 * 
+	 * @precondition none
+	 * @postcondition getBotWins() == 0, getUserWins() == 0, getRoundNumber() == 0
 	 */
 	public MindReader() {
 		this.botWins = 0;
@@ -30,38 +33,49 @@ public class MindReader {
 	}
 
 	/**
+	 * Gets the bot's wins.
 	 * 
-	 * @return
+	 * @return the bot's wins
 	 */
 	public int getBotWins() {
 		return this.botWins;
 	}
 
 	/**
+	 * Gets the user's wins.
 	 * 
-	 * @return
+	 * @return the user's wins
 	 */
 	public int getUserWins() {
 		return this.userWins;
 	}
 
 	/**
+	 * Gets the round number.
 	 * 
-	 * @return
+	 * @return the round number
 	 */
 	public int getRoundNumber() {
 		return this.roundNumber;
 	}
 
 	/**
+	 * Starts the first round of MindReader
 	 * 
+	 * @precondition none
+	 * @postcondition none
 	 */
 	public void start() {
 		this.playRound();
 	}
 
 	/**
+	 * The normal round for the game. Generates guess for the bot, reads user's
+	 * guess, and outputs result in the console.
 	 * 
+	 * @precondition none
+	 * @postcondition a point had been rewarded to the winner, and proper solution
+	 *                strings is presented.
 	 */
 	private void playRound() {
 		this.botGuess = "";
@@ -96,16 +110,23 @@ public class MindReader {
 	}
 
 	/**
+	 * Adds the Guess to the HashTable.
 	 * 
-	 * @param key
-	 * @param value
+	 * @precondition none
+	 * @postcondition table.size() = table.size() + 1
+	 * 
+	 * @param key   the key
+	 * @param value the value
 	 */
 	private void addGuessToHashTable(int key, String value) {
 		this.table.put(key, value);
 	}
 
 	/**
+	 * Makes a guess for the bot.
 	 * 
+	 * @precondition none
+	 * @postcondition this.botGuess = a head/tails choice.
 	 */
 	private void makeABotGuess() {
 		if (this.table.size() < 4) {
@@ -122,8 +143,9 @@ public class MindReader {
 	}
 
 	/**
+	 * Checks to see if the bot's guess equals the user's guess.
 	 * 
-	 * @return
+	 * @return if the bot's guess equals the user's guess
 	 */
 	private boolean correctGuess() {
 		if (this.botGuess.equals(this.userGuess)) {
@@ -133,9 +155,13 @@ public class MindReader {
 	}
 
 	/**
+	 * Formats the outcome string for the program.
 	 * 
-	 * @param correctGuess
-	 * @return
+	 * @precondition none
+	 * @postcondition the win is added to the proper winner.
+	 * 
+	 * @param correctGuess the bot's guess equal to user's guess
+	 * @return a formatted string
 	 */
 	private String formatGuess(boolean correctGuess) {
 		if (correctGuess) {
