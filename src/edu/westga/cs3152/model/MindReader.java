@@ -18,7 +18,6 @@ public class MindReader {
 	public MindReader() {
 		this.botWins = 0;
 		this.userWins = 0;
-		this.playRound();
 	}
 
 	public int getBotWins() {
@@ -29,28 +28,39 @@ public class MindReader {
 		return this.userWins;
 	}
 	
-	private void start() {
-		while (botWins < 25 || userWins < 25) {
-			
-		}
+	public void start() {
+		this.playRound();
 	}
 	
 	private void playRound() {
+		this.botGuess =  "";
+		this.userGuess = "";
 		System.out.println("Guess head or tails and I'll predict your guess.");
-		System.out.print("What is your guess [h/t] ?");
+		System.out.println("What is your guess [h/t] ?");
 		Scanner scanner = new Scanner(System.in);
 		while (scanner.hasNext()) {
-			String input = scanner.next();
-			if (input.equals("h") || input.equals("t")) {
+			String input = scanner.nextLine();
+			if (input.equalsIgnoreCase("h") || input.equalsIgnoreCase("t")) {
 				this.userGuess = input;
-				scanner.close();
+				break;
 			}
 		}
 		this.makeABotGuess();
 		boolean correctGuess = this.correctGuess();
 		String formattedGuess = this.formatGuess(correctGuess);
 		System.out.println(formattedGuess);
-		System.out.println("Score = " + this.botWins + " | " + this.userWins);
+		System.out.println("Score = " + this.botWins + " | " + this.userWins + System.lineSeparator());
+		
+		if (this.botWins < 25 && this.userWins < 25) {
+			this.playRound();
+		} else {
+			scanner.close();
+			if (this.botWins >= 25) {
+				System.out.print("The bot won.");
+			} else if (this.userWins >= 25) {
+				System.out.print("You won.");
+			}
+		}
 	}
 	
 	private void makeABotGuess() {
@@ -66,8 +76,10 @@ public class MindReader {
 	
 	private String formatGuess(boolean correctGuess) {
 		if (correctGuess) {
+			this.botWins += 1;
 			return "Yes!. I too predicted " + this.botGuess + ". ";
 		} else if (!correctGuess) {
+			this.userWins += 1;
 			return "No. I predicted " + this.botGuess + ".";
 		} else {
 			return "Error";

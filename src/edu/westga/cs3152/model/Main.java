@@ -9,6 +9,7 @@ package edu.westga.cs3152.model;
 public class Main {
 	
 	public static void main(String[] args) {
-		
+		MindReader app = new MindReader();
+		app.start();
 	}
 }
